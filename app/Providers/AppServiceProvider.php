@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Course;
+use App\Observers\CourseObserver;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Course::observe(CourseObserver::class);
+        // Event::listen(
+        //     CourseObserver::class
+        // );
     }
 }
