@@ -18,6 +18,11 @@ class CourseRepository
         return $this->model->all();
     }
 
+    public function getCourseByUuid(string $uuid)
+    {
+        return $this->model->where('uuid', $uuid)->firstOrFail();
+    }
+
     public function createNewCourse(array $data)
     {
         return $this->model->create($data);
