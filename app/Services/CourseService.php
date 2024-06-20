@@ -27,4 +27,13 @@ class CourseService
     {
         return $this->courseRepository->createNewCourse($data);
     }
+
+    public function deleteCourse(string $identify)
+    {
+        return $this->courseRepository->deleteCourseByUuid($identify);
+    }
+    public function updateCourse(array $data, string $identify)
+    {
+        return $this->courseRepository->updateCourseByUuid($data, $identify);
+    }
 }

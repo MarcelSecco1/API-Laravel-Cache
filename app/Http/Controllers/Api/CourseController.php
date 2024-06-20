@@ -51,16 +51,20 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreUpdateCourse $request, string $identify)
     {
-        //
+        $this->courseService->updateCourse($request->validated(), $identify);
+
+        return response()->json(['message' => 'updated'] );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $identify)
     {
-        //
+        $this->courseService->deleteCourse($identify);
+
+        return response()->json([], 204);
     }
 }
