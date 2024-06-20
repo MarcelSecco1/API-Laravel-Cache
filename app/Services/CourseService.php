@@ -17,4 +17,9 @@ class CourseService
     {
         return $this->courseRepository->getAllCourses();
     }
+
+    public function createNewCourse(array $data)
+    {
+        return $this->courseRepository->createNewCourse($data);
+    }
 }

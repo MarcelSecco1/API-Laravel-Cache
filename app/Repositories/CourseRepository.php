@@ -17,4 +17,9 @@ class CourseRepository
     {
         return $this->model->all();
     }
+
+    public function createNewCourse(array $data)
+    {
+        return $this->model->create($data);
+    }
 }
