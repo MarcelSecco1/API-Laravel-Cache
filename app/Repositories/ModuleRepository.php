@@ -13,19 +13,32 @@ class ModuleRepository
         $this->model = $module;
     }
 
-    public function getAllModules()
+    public function getAllModulesByCourse(int $course)
     {
-        return $this->model->all();
+        return $this->model->where('course_id', $course)->get();
     }
 
+    public function getModule(int $id, string $uuid)
+    {
+        return $this->model->where('course_id', $id)
+            ->where('uuid', $uuid)
+            ->firstOrFail();
+    }
     public function getModuleByUuid(string $uuid)
     {
         return $this->model->where('uuid', $uuid)->firstOrFail();
     }
 
-    public function createNewModule(array $data)
+    public function createNewModule(int $courseId, array $data)
     {
+        $data['course_id'] = $courseId;
         return $this->model->create($data);
+    }
+
+    public function updateModuleByUuid(int $courseId, array $data, string $uuid)
+    {
+        $data['course_id'] = $courseId;
+        return $this->getModuleByUuid($uuid)->update($data);
     }
 
     public function deleteModuleByUuid(string $uuid)
@@ -33,8 +46,5 @@ class ModuleRepository
         return $this->getModuleByUuid($uuid)->delete();
     }
 
-    public function updateModuleByUuid(array $data, string $uuid)
-    {
-        return $this->getModuleByUuid($uuid)->update($data);
-    }
+    
 }

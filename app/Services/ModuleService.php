@@ -2,30 +2,39 @@
 
 namespace App\Services;
 
+use App\Repositories\CourseRepository;
 use App\Repositories\ModuleRepository;
 
 class ModuleService
 {
-    protected $moduleRepository;
+    protected $moduleRepository, $courseRepository;
 
-    public function __construct(ModuleRepository $moduleRepository)
-    {
+    public function __construct(
+        ModuleRepository $moduleRepository,
+        CourseRepository $courseRepository
+    ) {
         $this->moduleRepository = $moduleRepository;
+        $this->courseRepository = $courseRepository;
     }
 
-    public function getModules()
+    public function getModulesByCourse(string $course)
     {
-        return $this->moduleRepository->getAllModules();
+        $course = $this->courseRepository->getCourseByUuid($course);
+        return $this->moduleRepository->getAllModulesByCourse($course->id);
     }
 
-    public function getModule(string $identify)
+    public function getModuleByCourse(string $course, string $identify)
     {
-        return $this->moduleRepository->getModuleByUuid($identify);
+        $course = $this->courseRepository->getCourseByUuid($course);
+
+        return $this->moduleRepository->getModule($course->id, $identify);
     }
 
     public function createNewModule(array $data)
     {
-        return $this->moduleRepository->createNewModule($data);
+        $course = $this->courseRepository->getCourseByUuid($data['course']);
+
+        return $this->moduleRepository->createNewModule($course->id, $data);
     }
 
     public function deleteModule(string $identify)
@@ -34,6 +43,7 @@ class ModuleService
     }
     public function updateModule(array $data, string $identify)
     {
-        return $this->moduleRepository->updateModuleByUuid($data, $identify);
+        $course = $this->courseRepository->getCourseByUuid($data['course']);
+        return $this->moduleRepository->updateModuleByUuid($course->id, $data, $identify);
     }
 }

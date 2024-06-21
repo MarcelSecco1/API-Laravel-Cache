@@ -20,37 +20,37 @@ class ModuleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($course)
     {
-        $cousers = $this->moduleService->getModules();
+        $modules = $this->moduleService->getModulesByCourse($course);
 
-        return ModuleResource::collection($cousers);
+        return ModuleResource::collection($modules);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUpdateModule $request)
+    public function store(StoreUpdateModule $request, $course)
     {
-        $couse = $this->moduleService->createNewModule($request->validated());
+        $module = $this->moduleService->createNewModule($request->validated());
 
-        return new ModuleResource($couse);
+        return new ModuleResource($module);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $identify)
+    public function show($course, string $identify)
     {
-        $Module = $this->moduleService->getModule($identify);
+        $module = $this->moduleService->getModuleByCourse($course, $identify);
 
-        return new ModuleResource($Module);
+        return new ModuleResource($module);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreUpdateModule $request, string $identify)
+    public function update(StoreUpdateModule $request, $course, string $identify)
     {
         $this->moduleService->updateModule($request->validated(), $identify);
 
@@ -60,7 +60,7 @@ class ModuleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $identify)
+    public function destroy($course, string $identify)
     {
         $this->moduleService->deleteModule($identify);
 

@@ -24,9 +24,8 @@ class StoreUpdateModule extends FormRequest
         $uuid = $this->course ?? '';
 
         return [
-                                            // unico na tabela cursos, campo name, ignorando o uuid passado
-            'name' => ['required', 'max:255', 'min:3', "unique:courses,name,{$uuid},uuid"],
-            'description' => ['required', 'max:9999', 'min:3'],
+            'name' => ['required', 'max:255', 'min:3'],
+            'course' => ['required', 'exists:courses,uuid'],
         ];
     }
 }

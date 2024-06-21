@@ -11,7 +11,7 @@ Route::get('/courses/{identify}', [CourseController::class, 'show']);
 Route::delete('/courses/{identify}', [CourseController::class, 'destroy']);
 Route::put('/courses/{course}', [CourseController::class, 'update']);
 
-Route::apiResource('/modules', ModuleController::class);
+Route::apiResource('/courses/{course}/modules', ModuleController::class);
 
 Route::get('/', function () {
     return response()->json(['message' => 'ok']);
