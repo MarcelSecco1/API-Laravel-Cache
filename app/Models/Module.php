@@ -9,7 +9,7 @@ class Module extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'course_id'];
 
     /* Define the relationship with the Course model
     *  Um módulo pertence a vários cursos
