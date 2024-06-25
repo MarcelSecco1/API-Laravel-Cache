@@ -11,5 +11,10 @@ class Lesson extends Model
 
     protected $fillable = ['name', 'description', 'video', 'module_id'];
 
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
+    }
+
 }
 
