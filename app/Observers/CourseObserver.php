@@ -13,6 +13,7 @@ class CourseObserver
     public function creating(Course $course): void
     {
         $course->uuid = (string) Str::uuid();
+        return;
     }
 
     

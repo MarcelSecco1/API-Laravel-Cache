@@ -14,6 +14,6 @@ class ModuleObserver
     public function creating(Module $module): void
     {
         $module->uuid = (string) Str::uuid();
+        return;
     }
-
 }
