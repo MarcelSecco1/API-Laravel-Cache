@@ -11,7 +11,7 @@ class StoreUpdateLesson extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,10 +24,10 @@ class StoreUpdateLesson extends FormRequest
         $uuid = $this->module ?? '';
 
         return [
-            'name' => ['required', 'max:255', 'min:3', 'unique:lessons,name,{$uuid},uuid'],
-            'video' => ['required', 'max:255', 'min:3', 'unique:lessons,video,{$uuid},uuid'],
-            'description' => ['nullable', 'max:255', 'min:3'],
-            'course' => ['required', 'exists:courses,uuid'],
+            'module' => ['required', 'exists:modules,uuid'],
+            'name' => ['required', 'max:255', 'min:3', 'unique:lessons,name,' . $uuid . 'uuid'],
+            'video' => ['required', 'max:255', 'min:3', 'unique:lessons,video,' . $uuid . 'uuid'],
+            'description' => ['max:255', 'min:3'],
         ];
     }
 }

@@ -52,6 +52,7 @@ class ModuleController extends Controller
      */
     public function update(StoreUpdateModule $request, $course, string $identify)
     {
+        dd('teste');
         $this->moduleService->updateModule($request->validated(), $identify);
 
         return response()->json(['message' => 'updated']);

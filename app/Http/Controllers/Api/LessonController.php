@@ -51,7 +51,7 @@ class LessonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(lesson $request, $module, string $identify)
+    public function update(StoreUpdateLesson $request, $module, string $identify)
     {
         $this->lessonService->updateLesson($request->validated(), $identify);
 

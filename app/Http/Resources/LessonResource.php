@@ -19,7 +19,6 @@ class LessonResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'video' => $this->video,
-            'module' => new ModuleResource($this->module)
         ];
     }
 }
