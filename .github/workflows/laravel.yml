@@ -62,6 +62,5 @@ jobs:
             cd ci-cd-laravel/
             sudo docker-compose up -d
             sudo docker-compose exec -T app composer install
-            sudo docker-compose exec -T app php artisan key:generate
-            sudo docker-compose exec -T app php artisan migrate
+            
 
