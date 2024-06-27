@@ -43,7 +43,7 @@ jobs:
           ref: main
 
       - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@5.0.3
+        uses: easingthemes/ssh-deploy@main
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i --delete --exclude .git --exclude .docker --exclude .github"
