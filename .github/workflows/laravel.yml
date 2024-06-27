@@ -51,21 +51,17 @@ jobs:
           REMOTE_USER: ${{ secrets.SSH_USER }}
           TARGET: /home/${{ secrets.SSH_USER }}/ci-cd-laravel
 
-      - name: Executing remote ssh commands using ssh key
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            cd ci-cd-laravel/
-            cp .env.example .env
-            sudo docker-compose up -d
-            sudo docker-compose exec -T app composer install
-            sudo docker-compose exec -T app php artisan key:generate
-            sudo docker-compose exec -T app php artisan migrate 
-            
-
-            
-
+      # - name: Executing remote ssh commands using ssh key
+      #   uses: appleboy/ssh-action@v1.0.3
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     username: ${{ secrets.SSH_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     port: ${{ secrets.SSH_PORT }}
+      #     script: |
+      #       cd ci-cd-laravel/
+      #       cp .env.example .env
+            # sudo docker-compose up -d
+            # sudo docker-compose exec -T app composer install
+            # sudo docker-compose exec -T app php artisan key:generate
+            # sudo docker-compose exec -T app php artisan migrate --force
