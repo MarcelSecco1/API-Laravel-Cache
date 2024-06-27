@@ -44,6 +44,7 @@ class CourseRepository
 
     public function createNewCourse(array $data)
     {
+        Cache::forget('courses');
         return $this->model->create($data);
     }
 
