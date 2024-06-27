@@ -60,7 +60,12 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ci-cd-laravel/
+            cp .env.example .env
             sudo docker-compose up -d
             sudo docker-compose exec -T app composer install
+            sudo docker-compose exec -T app php artisan key:generate
+            sudo docker-compose exec -T app php artisan migrate 
+            
+
             
 
