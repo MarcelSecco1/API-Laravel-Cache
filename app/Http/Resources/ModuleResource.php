@@ -19,7 +19,7 @@ class ModuleResource extends JsonResource
             'identify' => $this->uuid,
             'name' => $this->name,
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
-            'lessons' => LessonResource::collection($this->lessons)
+            'lessons' => LessonResource::collection($this->whenLoaded('lessons'))
         ];
     }
 }

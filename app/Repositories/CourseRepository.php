@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Course;
+use Illuminate\Support\Facades\Cache;
 
 class CourseRepository
 {
@@ -15,12 +16,30 @@ class CourseRepository
 
     public function getAllCourses()
     {
-        return $this->model->all();
+        // return Cache::remember('courses', 60, function () {
+        //     return $this->model
+        //         ->with('modules.lessons')
+        //         ->get();
+        // });
+
+        return Cache::rememberForever('courses', function () {
+            return $this->model
+                ->with('modules.lessons')
+                ->get();
+        });
     }
 
-    public function getCourseByUuid(string $uuid)
+    public function getCourseByUuid(string $uuid, bool $relationShip = true)
     {
-        return $this->model->where('uuid', $uuid)->firstOrFail();
+
+
+        $query = $this->model
+            ->where('uuid', $uuid);
+
+        if ($relationShip)
+            $query->with('modules.lessons');
+
+        return $query->firstOrFail();
     }
 
     public function createNewCourse(array $data)
@@ -30,11 +49,14 @@ class CourseRepository
 
     public function deleteCourseByUuid(string $uuid)
     {
-        return $this->getCourseByUuid($uuid)->delete();
+        Cache::forget('courses');
+        return $this->getCourseByUuid($uuid, false)->delete();
     }
 
     public function updateCourseByUuid(array $data, string $uuid)
     {
-        return $this->getCourseByUuid($uuid)->update($data);
+        Cache::forget('courses');
+
+        return $this->getCourseByUuid($uuid, false)->update($data);
     }
 }

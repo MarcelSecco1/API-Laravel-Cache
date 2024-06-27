@@ -20,7 +20,7 @@ class CourseResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
-            'modules' => ModuleResource::collection($this->modules)
+            'modules' => ModuleResource::collection($this->whenLoaded('modules'))
         ];
     }
 }
